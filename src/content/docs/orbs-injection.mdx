@@ -1,0 +1,36 @@
+---
+title: Orbs & injection
+description: Injecting orbs in Zenith
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Orbs
+<Aside>An orb is a concept wrapping something that will be injectable, and injected anywhere.</Aside>
+
+Zenith works with a injection container, that finds Orbs by scanning the modules present in your codebase.
+
+
+## Orb scanning
+The root of the scanner is your entry point, so if you have:
+```sh
+.
+├─ src/
+   ├─ index.ts (entrypoint)
+   ├─ services/
+      ├─ a.service.ts
+      ├─ b.service.ts
+```
+
+Zenith will load `index.ts`, `a.service.ts`, `b.service.ts` and find orbs there.
+
+The order of scanning is:
+1. Zenith core modules
+2. Zenith systems
+3. Your code
+
+## Orb injection
+
+After scanning your modules, Zenith instanciates Orbs taking into account their dependencies.
+
+As of today, orbs are instanciated as singletons, and these singletons are injected anywhere they're needed. Scopes / re-instanciation is not (yet) implemented.

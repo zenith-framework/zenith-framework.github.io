@@ -1,0 +1,54 @@
+---
+title: Introduction
+description: An introduction to Zenith
+---
+
+import { Code } from '@astrojs/starlight/components';
+
+
+Zenith framework aims to simplify the development of apps in Bun. It consists of a core packages, systems and `Blaze`.
+
+The core packages provides everything that is needed to:
+- automatically load every module in your project
+- instanciate your classes
+- provide injectable components (i.e. classes or values)
+
+## Injection container & Orbs
+
+Zenith uses an injection container and injected elements are called `orbs`.
+
+An orb represents anything that you with to make auto-injectable and auto-injected in your code.
+
+<Code code={`
+@Orb()
+export class MyService {
+    someMethod() {
+        return 'Hello, world !';
+    }
+}
+`} lang="js" title="my.service.ts" />
+
+<Code code={`
+@Orb()
+export class MyOtherService {
+    // Dependencies automatically injected
+    constructor(private readonly myService: MyService) {}
+
+    realMethod() {
+        return this.myService.someMethod();
+    }
+}
+`} lang="js" title="my-other.service.ts"/>
+
+## Systems
+
+Systems are core to Zenith. They provide a lot of 
+
+### Web
+
+This system provides capabilities to expose routes to serve JSON responses.
+
+
+## Blaze
+
+Zenith Blaze is zenith starter for web API (JSON & HTTP by default). It automatically starts Zenith with default systems (`web`)

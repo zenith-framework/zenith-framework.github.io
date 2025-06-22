@@ -1,0 +1,47 @@
+---
+title: Orbs & injection
+description: Injecting orbs in Zenith
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Systems
+<Aside>A system is a concept that is entangled in Zenith's life-cycle. It exposes Orbs and capabilities that enable modularity.</Aside>
+
+When you want to aggregate some functionalities in the same place, systems are a good place to do so.
+
+## Systems & zenith lifecycle
+
+Zenith's lifecycle is as follows:
+1. Provide Orb container (for dependency injection)
+2. Prepare systems \
+   a. call `system.init(container)` \
+   b. load systems' orbs
+3. Load project's orbs (your code)
+4. Instanciate orbs
+5. Runs (can hang here if a web server is started for example)
+6. Shutdown \
+   a. Stop systems \
+   b. Stop zenith
+
+## Creating a new system
+
+You need at least 1 file to make a new system:
+
+```ts title=my.system.ts
+import type { ZenithSystem } from "@zenith-framework/core";
+
+// It is important to use that interface, to correctly implement hooks
+export class MySystem implements ZenithSystem {
+   init(container: OrbContainer): void {}
+
+   async onStart(): Promise<void> {}
+
+   async onStop(): Promise<void> {}
+
+   getPath(): string {
+      // keep this one exactly that way. disclaimer: it will change very soon to be less boilerplate
+        return import.meta.dirname;
+   }
+}
+```

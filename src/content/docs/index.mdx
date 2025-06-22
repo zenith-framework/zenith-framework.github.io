@@ -1,0 +1,36 @@
+---
+title: Home
+description: Quickly build complex apps with Zenith
+template: splash
+hero:
+  tagline: Quickly build complex apps with Zenith
+  image:
+    file: ../../assets/houston.webp
+  actions:
+    - text: Quick start
+      link: /quick-start
+      icon: right-arrow
+    - text: Read the Zenith docs
+      link: /introduction
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Features
+
+<CardGrid stagger>
+	<Card title="Automatic injection" icon="pencil">
+		Zenith scans your code to find and register dependencies for automatic injection.
+	</Card>
+	<Card title="Blazing fast bootstrapping" icon="setting">
+		Using `blaze`, bootstrap a web server in as less as **2 lines of code**.
+	</Card>
+	<Card title="Modularity" icon="add-document">
+		Use **systems** to bundle features and use them in multiple apps.
+	</Card>
+	<Card title="Performance" icon="add-document">
+		Leveraging the renowned performances of Bun.
+	</Card>
+</CardGrid>
