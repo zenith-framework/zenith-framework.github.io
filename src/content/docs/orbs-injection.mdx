@@ -10,6 +10,18 @@ import { Aside } from '@astrojs/starlight/components';
 
 Zenith works with a injection container, that finds Orbs by scanning the modules present in your codebase.
 
+## Providing orbs
+
+To automatically provide an orb, annotate your class with `@Orb()` as follows:
+```ts
+@Orb()
+export class MyOrb {} // Provides 'MyOrb' of type <MyOrb>
+
+@Orb('specific-name')
+export class MySpecificOrb {} // Provides 'specific-name' of type <MySpecificOrb>
+```
+
+Note that your can specify a custom name. **By default, the type's name is used.**
 
 ## Orb scanning
 The root of the scanner is your entry point, so if you have:
@@ -34,3 +46,28 @@ The order of scanning is:
 After scanning your modules, Zenith instanciates Orbs taking into account their dependencies.
 
 As of today, orbs are instanciated as singletons, and these singletons are injected anywhere they're needed. Scopes / re-instanciation is not (yet) implemented.
+
+To inject a specific orb in another, do as follows (using previous example's orb names):
+```ts
+@Orb()
+export class Service {
+    constructor(
+        private readonly myOrb: MyOrb, // uses the provided 'MyOrb' orb
+        @InjectOrb('specific-name') private readonly other: MySpecificOrb, // uses the custom name given in @InjectOrb
+    ) {}
+}
+```
+
+You can also allow for the absence of an orb (for example if you want to inject it in best effort and have particular behavior if it is provided):
+```ts
+@Orb()
+export class Service {
+    constructor(
+        @InjectOrb('specific-name', { allowAbsent: true }) private readonly other: MySpecificOrb, // allows container to inject `undefined` here
+    ) {}
+}
+```
+
+If not provided, the container will inject `undefined`.
+
+**By default, `allowAbsent` is set to `false`.
