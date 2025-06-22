@@ -16,7 +16,7 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, Steps } from '@astrojs/starlight/components';
 
 ## Features
 
@@ -34,3 +34,30 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 		Leveraging the renowned performances of Bun.
 	</Card>
 </CardGrid>
+
+
+## Get started
+
+<Steps>
+1. Initialize your project
+	```sh
+	bun init my-project && cd my-project
+	```
+
+2. Install Zenith Blaze
+	```sh
+	bun add @zenith-framework/blaze
+	```
+
+3. Use Blaze in your app to automatically scan your modules
+	```ts title=src/index.ts
+	import { startBlaze } from '@zenith-framework/blaze'
+	startBlaze();
+	```
+
+4. Start your app
+	```sh
+	bun run src/index.ts
+	```
+5. Start building 🚀
+</Steps>
