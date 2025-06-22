@@ -5,6 +5,7 @@ import { ion } from 'starlight-ion-theme';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://zenith-framework.github.io/',
 	integrations: [
 		starlight({
 			title: 'Zenith Framework',
